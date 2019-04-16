@@ -29,15 +29,17 @@ public class EarthquakeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_activity);
 
-        // Create a fake list of earthquake objects
-        ArrayList<Earthquake> earthquakes = new ArrayList<Earthquake>();
-        earthquakes.add(new Earthquake("1", "San Francisco", "Feb 2, 2016"));
-        earthquakes.add(new Earthquake("1", "London", "Feb 2, 2016"));
-        earthquakes.add(new Earthquake("1", "Tokyo", "Feb 2, 2016"));
-        earthquakes.add(new Earthquake("1", "Mexico City", "Feb 2, 2016"));
-        earthquakes.add(new Earthquake("1", "Moscow", "Feb 2, 2016"));
-        earthquakes.add(new Earthquake("1", "Rio de Janeiro", "Feb 2, 2016"));
-        earthquakes.add(new Earthquake("1", "Paris", "Feb 2, 2016"));
+        // Create a fake list of earthquake objects from {link QueryUtils}
+        ArrayList<Earthquake> earthquakes = QueryUtils.extractEarthquakes();
+
+//        ArrayList<Earthquake> earthquakes = new ArrayList<Earthquake>();
+//        earthquakes.add(new Earthquake("1", "San Francisco", "Feb 2, 2016"));
+//        earthquakes.add(new Earthquake("1", "London", "Feb 2, 2016"));
+//        earthquakes.add(new Earthquake("1", "Tokyo", "Feb 2, 2016"));
+//        earthquakes.add(new Earthquake("1", "Mexico City", "Feb 2, 2016"));
+//        earthquakes.add(new Earthquake("1", "Moscow", "Feb 2, 2016"));
+//        earthquakes.add(new Earthquake("1", "Rio de Janeiro", "Feb 2, 2016"));
+//        earthquakes.add(new Earthquake("1", "Paris", "Feb 2, 2016"));
 
         // Create a {@link EarthquakeAdapter}, whose data source is a list of
         // {@link Earthquake}s. The adapter knows how to create list item views for each item

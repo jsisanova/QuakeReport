@@ -12,23 +12,22 @@ public class Earthquake {
     // Location of earthquake
     private String mLocation;
 
-    // Date of earthquake
-    private String mDate;
+    /** Time of the earthquake */
+    private long mTimeInMilliseconds;
 
     /*
-     * Create a new Earthquake object.
+     * Construct a new {link Earthquake} object.
      *
-     * @param vName is the name of the Android version (e.g. Gingerbread)
-     * @param vNumber is the corresponding Android version number (e.g. 2.3-2.7)
-     * @param image is drawable reference ID that corresponds to the Android version
+     *  @param magnitude is the magnitude (size) of the earthquake
+     * @param location is the city location of the earthquake
+     * @param timeInMilliseconds is the time in milliseconds (from the Epoch) when the
+     *  earthquake happened
      * */
-    public Earthquake(String magnitude, String location, String date)
-    {
+    public Earthquake(String magnitude, String location, long timeInMilliseconds) {
         mMagnitude = magnitude;
         mLocation = location;
-        mDate = date;
+        mTimeInMilliseconds = timeInMilliseconds;
     }
-
     /**
      * Get the magnitude of earthquake
      */
@@ -44,9 +43,9 @@ public class Earthquake {
     }
 
     /**
-     * Get the date of earthquake
+     * Get the time of the earthquake.
      */
-    public String getDate() {
-        return mDate;
+    public long getTimeInMilliseconds() {
+        return mTimeInMilliseconds;
     }
 }
