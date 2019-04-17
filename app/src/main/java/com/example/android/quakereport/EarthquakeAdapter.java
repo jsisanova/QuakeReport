@@ -16,6 +16,11 @@ import java.util.Date;
  * based on a data source, which is a list of {@link Earthquake} objects.
  * */
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
+
+//   We will be use the split(String string) method in the String class to split the original string at the position where the text “ of “ occurs.
+//   The result will be a String containing the characters PRIOR to the “ of ” text and a String containing the characters AFTER the “ of “ text.
+    private static final String LOCATION_SEPARATOR = " of ";
+
     /**
      * @param context     The current context. Used to inflate the layout file.
      * @param earthquakes A list of Earthquake objects to display in a list.
@@ -52,22 +57,44 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         // set this text on the magnitudeTextView
         magnitudeTextView.setText(currentEarthquake.getMagnitude());
 
-        TextView locationTextView = (TextView) listItemView.findViewById(R.id.location);
-        locationTextView.setText(currentEarthquake.getLocation());
+        // Get the original location String from the Earthquake object
+        String originalLocation = currentEarthquake.getLocation();
+        // Store the resulting Strings as primary location and location offset
+        String primaryLocation;
+        String locationOffset;
+        // If there is the LOCATION_SEPARATOR in the original location String, split the originalLocation String
+        // at the position where the text “ of “ occurs. The result will be a String containing the characters
+        // PRIOR to the “ of ” text and a String containing the characters AFTER the “ of “ text.
+        if (originalLocation.contains(LOCATION_SEPARATOR)) {
+            String[] parts = originalLocation.split(LOCATION_SEPARATOR);
+            locationOffset = parts[0] + LOCATION_SEPARATOR;
+            primaryLocation = parts[1];
+            // If there is no LOCATION_SEPARATOR in the original location String, then we can assume
+            // that we should we use the “Near the” text as the location offset, and just use
+            // the original location String as the primary location.
+        } else {
+            locationOffset = getContext().getString(R.string.near_the);
+            primaryLocation = originalLocation;
+        }
+        // Display the 2 separate Strings in the 2 TextViews in the list item layout.
+        TextView primaryLocationView = (TextView) listItemView.findViewById(R.id.primary_location);
+        primaryLocationView.setText(primaryLocation);
+        TextView locationOffsetView = (TextView) listItemView.findViewById(R.id.location_offset);
+        locationOffsetView.setText(locationOffset);
 
         // Create a new Date object from the time in milliseconds of the earthquake
         Date dateObject = new Date(currentEarthquake.getTimeInMilliseconds());
 
         // Find the TextView with view ID date
         TextView dateView = (TextView) listItemView.findViewById(R.id.date);
-        // Format the date string (i.e. "Mar 3, 1984")
+        // Format the date into readable string (i.e. "Mar 3, 1984")
         String formattedDate = formatDate(dateObject);
         // Display the date of the current earthquake in that TextView
         dateView.setText(formattedDate);
 
         // Find the TextView with view ID time
         TextView timeView = (TextView) listItemView.findViewById(R.id.time);
-        // Format the time string (i.e. "4:30PM")
+        // Format the time into readable string (i.e. "4:30PM")
         String formattedTime = formatTime(dateObject);
         // Display the time of the current earthquake in that TextView
         timeView.setText(formattedTime);
