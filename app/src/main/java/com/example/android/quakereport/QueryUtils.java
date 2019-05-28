@@ -110,6 +110,13 @@ public final class QueryUtils {
      * Query the USGS dataset and return a list of {@link Earthquake} objects.
      */
     public static List<Earthquake> fetchEarthquakeData(String requestUrl) {
+        // Force the background thread to sleep for 2 seconds, to test that loading indicator works
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         Log.i(LOG_TAG, "Test: call fetchEarthquakeData()");
 
         // Create URL object
